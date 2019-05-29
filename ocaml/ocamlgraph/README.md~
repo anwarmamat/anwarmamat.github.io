@@ -1,0 +1,53 @@
+### OCamlgraph example
+
+OCamlgraph is a graph library for OCaml. I want to show a simple example that uses the graph library.
+
+Let us write an OCaml graph that represents the following graph.
+
+First, let us define the Vertex and Edge.
+```
+module Node = struct                                                                
+   type t = int                                                                     
+   let compare = Pervasives.compare                                                 
+   let hash = Hashtbl.hash                                                          
+   let equal = (=)                                                                  
+end                                                                                 
+                                                                                    
+(* representation of an edge -- must be comparable *)                               
+module Edge = struct                                                                
+   type t = string                                                                  
+   let compare = Pervasives.compare                                                 
+   let equal = (=)                                                                  
+   let default = ""                                                                 
+end
+```
+Now, we create the graph
+```
+module G = Persistent.Graph.Concrete(Node)
+```
+
+To create a vertex, you can
+let v1 = G.V.create 100;;
+
+Now, add the vertex to the graph G
+
+let g = G.add_vertex g v1;;
+
+Add more vertices
+
+let g = G.add_vertex g (G.V.create 200);;
+
+
+Now, let us display all the added vertices
+
+G.iter_vertex (fun x->Caml.print_int x)) g
+
+Add edges to the graph
+
+ let g = G.add_edge g 100 200;;
+
+get the adjacent vertices of vertex 1
+
+ let adj = G.succ g 100;;      
+
+
