@@ -1,0 +1,76 @@
+open Printf;;
+module type TYPE =                                                
+  sig                                                             
+    type t                                                        
+    val to_str: t->string                                                       
+  end
+
+module IntItem : (TYPE with type t = int) =
+  struct
+    type t = int
+    let to_str = string_of_int
+  end
+
+module FloatItem : (TYPE with type t = float) =
+  struct
+    type t = float
+    let to_str = string_of_float
+  end
+
+module PointItem : (TYPE with type t = {x:int; y:int}) =
+  struct
+    type t = {x:int; y:int}
+    let to_str x = "empty"
+  end
+
+
+  
+module type BAG =
+  sig
+    type item
+    type t
+    val empty : t
+    val insert : item-> t -> t
+    val size: t -> int
+    val iter: (item -> unit)-> t -> unit
+    (* insert a list of items into the bag *)
+    val from_list: item list -> t -> t
+    val to_str: t-> string
+  end
+                  
+
+module ListBag  (Elt:TYPE):(BAG with type item = Elt.t) =
+  struct
+    type item = Elt.t
+    type t = Elt.t list
+    let empty  = []
+    let insert x bag = x::bag
+    let size bag = List.length bag
+    let iter f bag  = List.iter f bag
+    let from_list lst b = List.fold_left (fun bag item -> insert item bag) b lst
+    ;;    
+    let to_str b = "[" ^ (List.fold_left (fun x y -> x ^ (Elt.to_str y) ^ ",") "" b) ^"]" 
+  end
+
+module M1 = ListBag(IntItem);;
+
+let b = M1.empty;;
+let b = M1.insert 100 b
+let b = M1.insert 200 b;;
+
+let b = M1.from_list [1;2;3;4;5] b;;
+
+printf "bag size=%d\n" (M1.size b);;
+print_string  (M1.to_str b)
+ 
+module M2 = ListBag(FloatItem);;
+
+let b = M2.empty;;
+let b = M2.insert 10.0 b
+let b = M2.insert 20.0 b;;
+
+let b = M2.from_list [1.5;2.5;3.5;4.5] b;;
+
+printf "bag size=%d\n" (M2.size b);;
+print_string  (M2.to_str b)
+ 
