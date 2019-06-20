@@ -104,4 +104,4 @@ printf "bag size=%d\n" (PointBag.size b);;
 printf "bag:%s\n" (PointBag.toString b)
 ```
 
-Full code is [here](https://anwarmamat.github.io/ocaml/bag/bag.ml)
+Full code is [here:https://anwarmamat.github.io/ocaml/bag/bag.ml](https://anwarmamat.github.io/ocaml/bag/bag.ml)
