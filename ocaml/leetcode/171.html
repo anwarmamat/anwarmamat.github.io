@@ -35,10 +35,8 @@
 <h1> OCaml Solution </h1>
 <pre>
 <code> 
-let explode s =
-  let rec exp i l = if i < 0 then l
-                    else exp (i - 1) (s.[i] :: l) in
-  exp (String.length s - 1) []
+
+let explode s = List.init (String.length s) (String.get s)
 ;;
 
 let char2digits l =
