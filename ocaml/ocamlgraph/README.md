@@ -34,6 +34,7 @@ end
 Now, we create the graph
 ```
 module G =  Graph.Persistent.Digraph.ConcreteBidirectionalLabeled(Node)(Edge)
+let g = G.empty
 ```
 
 Create a vertex
