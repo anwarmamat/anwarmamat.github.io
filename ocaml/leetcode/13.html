@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <title> 13. Roman to Integer</title>
+  </head>
+  <body>
+    <h1>13. Roman to Integer  (Easy)</h1>
+    <p>Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.</p>
+<table border="1">
+  <tr>
+    <th>Symbol</th>
+    <th>Value</th>
+  </tr>
+  <tr>
+    <td>I</td><td>1</td>
+  </tr>
+  <tr><td>V</td><td>             5</td></tr>                                                                            
+  <tr><td>X</td><td>             10</td></tr>                                                                           
+  <tr><td>L</td><td>             50</td></tr>                                                                           
+  <tr><td>C</td><td>             100</td></tr>                                                                          
+  <tr><td>D</td><td>             500</td></tr>                                                                          
+  <tr><td>M</td><td>             1000</td></tr>
+</table>
+    <p>For example, two is written as II in Roman numeral, just two one's added together. Twelve 
+is written as, XII, which is simply X + II. The number twenty seven is written as XXVII, w
+hich is XX + V + II.</p>                                                                       
+                                                                                           
+<p>Roman numerals are usually written largest to smallest from left to right. However, the nu
+meral for four is not IIII. Instead, the number four is written as IV. Because the one is 
+before the five we subtract it making four. The same principle applies to the number nine,
+ which is written as IX. There are six instances where subtraction is used:</p>
+<ul>
+  <li>I can be placed before V (5) and X (10) to make 4 and 9.</li>                                  
+  <li>X can be placed before L (50) and C (100) to make 40 and 90.</li>                               
+  <li>C can be placed before D (500) and M (1000) to make 400 and 900.</li>                           
+  <li>Given a roman numeral, convert it to an integer. Input is guaranteed to be within the range from 1 to 3999.</li>
+</ul>
+<table border="1">
+  <tr>
+    <th>Roman</th>
+    <th>Value</th>
+    <th>Explanation</th>
+  </tr>
+  <tr>
+    <td>III</td>
+    <td>3</td>
+  </tr>
+  <tr>
+    <td>IV</td>
+    <td>4</td>
+  </tr>
+  <tr>
+    <td>IX</td>
+    <td>10</td>
+  </tr>
+  <tr>
+    <td>LVIII</td>
+    <td>58</td>
+    <td>L = 50, V= 5, III = 3</td>
+  </tr>
+  <tr>
+    <td>"MCMXCIV"</td>
+    <td>1994</td>
+    <td>M = 1000, CM = 900, XC = 90 and IV = 4</td>
+  </tr>
+</table>
+<h1> OCaml Solution </h1>
+<pre>
+<code> 
+let explode s = List.init (String.length s) (String.get s)
+;;
+
+let get x =                                                                                
+  match x with                                                                             
+  |'I' -> 1                                                                                
+  |'V' -> 5                                                                                       
+  |'X' -> 10
+  |'L' -> 50                                                                                           
+  |'C' -> 100
+  |'D' -> 500
+  |'M' -> 1000                                                                             
+;; 
+
+let r2n roman =                                                                            
+  let lst = (explode roman) in                                                             
+  let rec aux r =                                                                          
+    match r with                                                                           
+      []->0                                                                                
+     |[x]-> get x                                                                          
+     |h1::h2::t ->                                                                         
+       if get h1 >= get h2 then get h1 + aux (h2::t)                                       
+       else get h2 - get h1 + aux t                                                        
+  in aux lst                                                                               
+  ;;
+</code>
+</pre>
+  </body>
+</html>

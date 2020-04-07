@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <title>171. Excel Sheet Column Number (Easy)</title>
+  </head>
+  <body>
+    <h1>171. Excel Sheet Column Number (Easy)</h1>
+    <p>
+      Given a column title as appear in an Excel sheet, return its corresponding column number.</p>
+      
+<table border="1">
+  <tr>
+    <th>Letter</th>
+    <th>Number</th>
+  </tr>
+  <tr>
+    <td>a</td><td>1</td>
+  </tr>
+  <tr><td>b</td><td>             2</td></tr>                                                                <tr><td>c</td><td>             3</td></tr>                                                                <tr><td>...</td><td>             ...</td></tr>                                                            <tr><td>z</td><td>             26</td></tr>                                                               <tr><td>aa</td><td>             27</td></tr>                                                              <tr><td>ab</td><td>             28</td></tr>
+</table>
+    <p>
+      Example 1:
+      Input: "a"
+      Output: 1                                                                                                 </p>
+    <p>
+      Example 2:
+      Input: "ab"
+      Output: 28
+    </p>
+    <p>
+      Example 3:
+      Input: "zy"
+      Output: 701  
+    </p>
+
+<h1> OCaml Solution </h1>
+<pre>
+<code> 
+
+let explode s = List.init (String.length s) (String.get s)
+;;
+
+let char2digits l =
+  let t1 = explode l in
+  let t2 = List.map (fun x-> Char.code x - (Char.code 'a') + 1) t1 in
+  let t3 = List.fold_left (fun x y -> x * 26 + y) 0 t2 in 
+  t3
+;;
+
+let () = assert (char2digits "a" = 1);;
+let () = assert (char2digits "b" = 2);;
+let () = assert (char2digits "ab" = 28);;
+let () = assert (char2digits "zy" = 701);;
+</code>
+</pre>
+  </body>
+</html>
