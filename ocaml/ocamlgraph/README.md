@@ -46,7 +46,10 @@ let g = G.add_vertex g v1;;
 ```
 Add other vertices
 ```
-let g = G.add_vertex g (G.V.create 2)                                                                   let g = G.add_vertex g (G.V.create 3)                                                                   let g = G.add_vertex g (G.V.create 4)                                                                   let g = G.add_vertex g (G.V.create 5)
+let g = G.add_vertex g (G.V.create 2)
+let g = G.add_vertex g (G.V.create 3)
+let g = G.add_vertex g (G.V.create 4)
+let g = G.add_vertex g (G.V.create 5)
 let g = G.add_vertex g (G.V.create 6)  
 ```
 
@@ -56,7 +59,13 @@ G.iter_vertex (fun x->Caml.print_int x)) g
 ```
 Add edges to the graph
 ```
-let g = G.add_edge g 1 2                                                                                let g = G.add_edge g 1 3                                                                                let g = G.add_edge g 2 4                                                                                let g = G.add_edge g 3 4                                                                                let g = G.add_edge g 2 5                                                                                let g = G.add_edge g 4 5                                                                                let g = G.add_edge g 1 6 
+let g = G.add_edge g 1 2
+let g = G.add_edge g 1 3
+let g = G.add_edge g 2 4
+let g = G.add_edge g 3 4
+let g = G.add_edge g 2 5
+let g = G.add_edge g 4 5
+let g = G.add_edge g 1 6 
 ```
 print the adjacent vertices of vertex 1
 ```
@@ -81,7 +90,8 @@ module Dot = Graph.Graphviz.Dot(struct
    let default_vertex_attributes _ = []
   let graph_attributes _ = []
 end)
-                                                                                                let _ =
+
+let _ =
    let file = open_out_bin "mygraph.dot" in
    Dot.output_graph file g 
 ```
