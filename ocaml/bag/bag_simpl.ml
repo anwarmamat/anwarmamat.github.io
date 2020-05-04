@@ -31,8 +31,12 @@ module ListBag  (Elt:TYPE):(BAG with type elt=Elt.t)  =
 
 module M1 = ListBag(IntItem);;
 
+let t = M1.empty
+let t2 = M1.insert 10 t
+let t3 = M1.insert 20 t2
+           
 
-M1.want_to_hide_this ();;
+(* M1.want_to_hide_this ();;*)
 
 
 
