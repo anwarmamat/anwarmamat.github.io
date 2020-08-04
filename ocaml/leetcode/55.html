@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <title>55. Jump Game (Medium)</title>
+    <body>
+      <h1>55. Jump Game (Medium)</h1>
+
+      <p>
+	Given an array of non-negative integers, you are initially positioned at the first index of the array.
+
+	Each element in the array represents your maximum jump length at that position.
+
+	Determine if you are able to reach the last index.
+</p>
+
+      <ol>
+	<li>
+	Example 1:
+	<pre>
+	  <code>
+	Input: nums = [2,3,1,1,4]
+	Output: true
+	Explanation: Jump 1 step from index 0 to 1, then 3 steps to the last index.
+	  </code>
+	  </pre>
+	</li>
+	<li>
+	Example 2:
+	<pre>
+	  <code>
+	Input: nums = [3,2,1,0,4]
+	Output: false
+	Explanation: You will always arrive at index 3 no matter what. Its maximum jump length is 0, which makes it impossible to reach the last index.
+	  </code>
+	  </pre>
+	</li>
+</p>
+<h1> OCaml Solution </h1>
+<pre>
+<code> 
+
+let canJump lst =
+  let (last_good, last_index) =
+    List.fold_left (
+       fun (last_good_index, index) x ->
+          if (x - (index - last_good_index) >=0) then
+            (index, index+1)
+	  else
+             (last_good_index, index+1)
+       ) (0,0) (List.rev lst)
+ in
+ last_good = last_index - 1
+;;
+
+
+let t1 = canJump [2;3;1;1;4];;
+let t2 = canJump [3;2;1;0;4];;
+let t3 = canJump [3;0;8;2;0;0;1];;
+let t4 =canJump [1;1;2;2;0;1;1];;
+let t4 = canJump [2;3;0;1;4];;
+let t5 = canJump [4;3;2;1;0];;
+let t6 = canJump [1;1;1;1;1];;
+let t7 = canJump [2;0;2;0;1];;
+let t8 =canJump [2;1;2;2;1;2;2;2];;
+</code>
+</pre>
+    </body>
+</html>
