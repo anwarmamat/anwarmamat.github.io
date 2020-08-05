@@ -1,0 +1,71 @@
+<h1 id="how-to-get-all-the-tests-from-leetcode">How to get all the tests from leetcode</h1>
+<p>When you fail a test on leetcode, it will show you the test. However, if you pass  the test, there is no easy way to see the tests. Sometimes, you want to implement the problem in another language, and you want to get all the test cases. Here is what I did to get the tests. </p>
+<p>I will use the leetcode problem 55 Jump Game. It says given an array of non-negative integers, you are initially positioned at the first index of the array. Each element in the array represents your maximum jump length at that position. Determine if you are able to reach the last index. Here is the my solution:</p>
+<pre><code class="lang-java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">canJump</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums)</span> </span>{
+    <span class="hljs-keyword">int</span> len = nums.length;
+    <span class="hljs-keyword">if</span>(len &lt; <span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+    <span class="hljs-keyword">int</span> last_good = len - <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = len-<span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">0</span>; i--){
+    <span class="hljs-keyword">if</span>(nums[i] - (last_good - i) &gt;=<span class="hljs-number">0</span>)
+         last_good = i;
+    }
+         <span class="hljs-keyword">return</span> last_good == <span class="hljs-number">0</span>;
+    }
+}
+</code></pre>
+<p>Because the problem is relatively easy, you can pass all tests once. To get the test cases, you can fail the unknown tests. I added this code to check whether I have seen a test:</p>
+<pre><code class="lang-java"><span class="hljs-keyword">private</span> <span class="hljs-function"><span class="hljs-keyword">boolean</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] nums, <span class="hljs-keyword">int</span>[][] tests, <span class="hljs-keyword">int</span> N)</span></span>{
+        <span class="hljs-keyword">int</span> lenN = nums.length;
+        <span class="hljs-comment">//compare all arrays</span>
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; N; j++){
+            <span class="hljs-keyword">if</span>(Arrays.equals(tests[j], nums))
+                <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
+    }
+</code></pre>
+<p>Now, I add the two tests cases leetcode provided with the problem, so that I can pass those two tests, but fail anything else:</p>
+<pre><code class="lang-java">public boolean canJump(<span class="hljs-keyword">int</span>[] nums) {
+    <span class="hljs-keyword">int</span>[][] tests = <span class="hljs-built_in">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">100</span>][];
+    <span class="hljs-keyword">int</span> N = <span class="hljs-number">0</span>;
+    tests[N++] = <span class="hljs-built_in">new</span> <span class="hljs-keyword">int</span>[]{<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">4</span>};
+    tests[N++] = <span class="hljs-built_in">new</span> <span class="hljs-keyword">int</span>[]{<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">4</span>};
+    <span class="hljs-keyword">int</span> <span class="hljs-built_in">len</span> = nums.length;
+    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">len</span> &lt; <span class="hljs-number">2</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">if</span>(!find(nums,tests,N))
+                <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">int</span> last_good = <span class="hljs-built_in">len</span> - <span class="hljs-number">1</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-built_in">len</span><span class="hljs-number">-2</span>; i &gt;= <span class="hljs-number">0</span>; i--){
+    <span class="hljs-keyword">if</span>(nums[i] - (last_good - i) &gt;=<span class="hljs-number">0</span>)
+        last_good = i;
+    }
+        <span class="hljs-keyword">return</span> last_good == <span class="hljs-number">0</span>;
+    }
+</code></pre>
+<p>If you notice, I added two tests</p>
+<pre><code class="lang-java">int[<span class="hljs-string"></span>][<span class="hljs-symbol"></span>] tests = new int[<span class="hljs-string">100</span>][<span class="hljs-symbol"></span>];
+<span class="hljs-code">    int N = 0;</span>
+<span class="hljs-code">    tests[N++] = new int[]{2,3,1,1,4};</span>
+<span class="hljs-code">    tests[N++] = new int[]{3,2,1,0,4};</span>
+</code></pre>
+<p>and called </p>
+<pre><code class="lang-java"><span class="hljs-keyword">if</span>(!<span class="hljs-keyword">find</span>(nums,tests,N))
+   <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+</code></pre>
+<p>to fail any new tests. </p>
+<p>Now, if you submit the solution, leetcode will show you a new test that you failed. You can copy/pase the test case into your solution. For example: leetcode shows you failed the test [3,0,8,2,0,0,1].  You can add the test as </p>
+<pre><code class="lang-java">tests[N++] = new int[]{<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">4</span>};
+tests[N++] = new int[]{<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">0</span>,<span class="hljs-number">4</span>};
+tests[N++] = new int[]{<span class="hljs-number">3</span>,<span class="hljs-number">0</span>,<span class="hljs-number">8</span>,<span class="hljs-number">2</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>}; <span class="hljs-comment">//new test</span>
+</code></pre>
+<p>If you submit, leetcode will show you another test and so on. This is tedious, but worked for me.
+Once a while, the test it huge and if you add the test to your code, leetcode will complain your solution is too big. You can code the property to skip those tests. For example: leetcode shows a test case with a humongous list of 1’s.  I added this code to the function <code>find</code> to skip it. </p>
+<pre><code class="lang-java"> //check<span class="hljs-built_in"> if </span>input is an<span class="hljs-built_in"> array </span>of same numbers
+<span class="hljs-built_in"> int </span>k=0;
+ for(k = 0; k &lt; lenN-1; k++){
+    if(nums[k] != nums[k+1]) break;
+ }
+ if(k &gt;= lenN-1)<span class="hljs-built_in"> return </span>true;
+</code></pre>
+<p>Based on the problem and tests, you may have to do other tricks. </p>
