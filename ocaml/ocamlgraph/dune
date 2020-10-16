@@ -1,4 +1,5 @@
-(executable
-	(name bfs)
+(executables
+	(names bfs imperative_edge)
 	(libraries core ocamlgraph)
+        (preprocess (pps ppx_jane ppx_deriving.show))
 )
