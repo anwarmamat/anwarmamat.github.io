@@ -45,7 +45,7 @@ let g = G.add_vertex g (G.V.create 5)
 
 let g = G.add_vertex g (G.V.create 6)
 
-let _= G.iter_vertex (fun x->print_int x) g                                       
+let _= G.iter_vertex (fun x->print_int x) g
 
 let g = G.add_edge g 1 2
 let g = G.add_edge g 1 3
@@ -57,7 +57,7 @@ let g = G.add_edge g 1 6
 ;;
 (* successors of 1 *)
 List.iter print_int (G.succ g 1)
-                                         
+
 
 (* BFS traversal of G *)
 
@@ -72,7 +72,7 @@ let m1 = M1.iter (fun x-> print_int x) g
  let _ =
    let file = open_out_bin "mygraph.dot" in
    D.output_graph file g
-;;     
+;;
  *)
 (*
   if D.has_cycle g     then ... else ...
