@@ -33,8 +33,9 @@ let balanced str =
 assert (balanced "()" = true);;
 assert (balanced ")(" = false);;
 assert (balanced "[()]" = true);;
+assert (balanced "" = true);;
 assert (balanced "([)]" = false);;
 assert (balanced "1{2[3(a)4]5}6" = true);;
 assert (balanced "[zkqya" = false);;
+assert (balanced "}{g}" = false);;
 
-    
