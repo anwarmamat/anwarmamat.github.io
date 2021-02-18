@@ -4,7 +4,7 @@
 #require "sexplib";;
 #require "ppx_sexp_conv";;
 #require "ppx_deriving.std";;
- *)
+*)
 
 
 (* to compile:
@@ -20,6 +20,9 @@ ocamlfind ocamlc -linkpkg -package Ppx_deriving.std,Ppx_sexp_conv,Sexplib ppx_de
 #require "ppx_deriving.fold";;
 #require "ppx_deriving.iter";;
 #require "ppx_deriving.map";;
+#require "ppx_deriving.std";;
+#require "sexplib";;
+#require "ppx_sexp_conv";;
 open Ppx_deriving_iter;;
 open Ppx_deriving_fold;;
 open Ppx_deriving_map;;
@@ -62,3 +65,4 @@ let t1 = Node(Node (Leaf, 50, Leaf), 100, Node(Leaf, 200, Leaf));;
 Printf.printf "%s\n" (show_tree (fun ppf y->fprintf ppf "%d" y) t1);;
 
 Printf.printf "sum=%d\n" (fold_tree (+) 0 t1)
+;;

@@ -7,6 +7,7 @@ module Node = struct
   |Branch_end
   |Flow
   |Block
+(*  [@@deriving sexp, show]*)
 
   type t = {
       id:int;
