@@ -1,17 +1,9 @@
-(*
-
-#use "topfind";;
-#require "sexplib";;
-#require "ppx_sexp_conv";;
-#require "ppx_deriving.std";;
-*)
-
 
 (* to compile:
 1) comment above "require"s
 2) compile with 
 
-ocamlfind ocamlc -linkpkg -package Ppx_deriving.std,Ppx_sexp_conv,Sexplib ppx_deriving_test.ml
+ocamlfind ocamlc -linkpkg -package ppx_deriving.std,ppx_sexp_conv,ppx_deriving.iter,ppx_deriving.fold,ppx_deriving.map,sexplib ppx_deriving_test.ml
 
  *)
 (*
@@ -23,13 +15,15 @@ ocamlfind ocamlc -linkpkg -package Ppx_deriving.std,Ppx_sexp_conv,Sexplib ppx_de
 #require "ppx_deriving.std";;
 #require "sexplib";;
 #require "ppx_sexp_conv";;
+*)
+
 open Ppx_deriving_iter;;
 open Ppx_deriving_fold;;
 open Ppx_deriving_map;;
 
 
 
-*)
+
 
 open Ppx_deriving_std;;
 open Sexplib;;
@@ -47,7 +41,8 @@ type point = {x:float; y:float; color:string} [@@deriving sexp, show, eq];;
 let p1 = {x=100.;y=200.; color="red"};;
 let p2 = {x=100.;y=200.; color="red"};;
 Printf.printf "%s\n" (show_point p1);;
-                                      
+
+
 (*
  type 'a tree = Leaf | Node of 'a tree * (int [@printer fun fmt -> fprintf fmt "0o%03o"]) * 'a tree
 [@@deriving show, sexp, iter, map, fold];;
